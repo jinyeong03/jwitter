@@ -1,4 +1,4 @@
-import { AuthService } from "fbase";
+import { AuthService, FirebaseInstance } from "fbase";
 import React, {useState} from "react";
 
 export default function Auth(){
@@ -33,6 +33,16 @@ export default function Auth(){
         }
     }
     const toggleAccount = ()=> setNewAccount((prev)=> !prev)
+    const onSocialClick = async (event)=>{
+        const {target: {name}} = event;
+        let provider;
+        if(name === "google"){
+            provider = new FirebaseInstance.auth.GoogleAuthProvider();
+        }else if (name === "github"){
+            provider = new FirebaseInstance.auth.GoogleAuthProvider();
+        }
+        await AuthService.signInWithPopup(provider);
+    }
     return(
         <div>
             <form onSubmit={onSubmit}>
@@ -43,8 +53,8 @@ export default function Auth(){
             </form>
             <span onClick={toggleAccount}>{newAccount ? "Sign in" : "Create Account"}</span>
             <div> 
-                <button>Continue with Google</button>
-                <button>Continue with Github</button>
+                <button name="google" onClick={onSocialClick}>Continue with Google</button>
+                <button name="github" onClick={onSocialClick}>Continue with Github</button>
             </div>
         </div>
     )
