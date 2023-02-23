@@ -6,20 +6,9 @@ import { createPortal } from "react-dom";
 export default function Home({userObj}){
     const [nweet, setNweet] = useState("");
     const [nweets, setNweets] = useState([]);
-    
-    // const getJweets = async ()=>{    ----------->  이건 구식 데이터 가져오기 (re-render 해줘야함)
-    //     const dbJweets = await DbService.collection("jweets").get();
-    //     dbJweets.forEach((document)=>{
-    //         const jweetObject = {
-    //             ...document.data(),
-    //             id: document.id,
-    //         }
-    //         setNweets((prev) => [jweetObject, ...prev])
-    //     })
-    // }   
+    const [attachment, setAttachment] = useState();
 
     useEffect(()=>{
-        // getJweets();
         DbService.collection("nweets").onSnapshot(sanpshot => {      //---------> 얘는 데이터 가져오는데 re-render 필요 없음
             const nweetArray = sanpshot.docs.map((doc) => ({
                 id: doc.id,
@@ -39,15 +28,39 @@ export default function Home({userObj}){
         setNweet("");
     }
 
-    const onChange = (event)=>{
+    const onChange = (event)=>{  //-------------> onchange input 값 state에 추가
         const {target: {value}} = event;
         setNweet(value);
     }
+
+    const onFileChange = (event)=>{   //-----------------> 이미지 미리보기 함수 (attachment state 활용)
+        //event.target.files 
+        const {target: { files }} = event;
+        const theFile = files[0];
+        const reader = new FileReader();
+        reader.onloadend = ((finishedEvent)=>{  //---------------> 밑에서 url을 읽는게 끝나면 실행 
+            const { currentTarget: { result } } = finishedEvent;
+            setAttachment(result);
+        })
+        reader.readAsDataURL(theFile);
+    }
+
+    const onClearAttachment = ()=> { //---------------> 이미지 미리보기 clear 함수 (attachment state 활용)
+        setAttachment(null);
+    }
+
     return(
         <div>
             <form onSubmit={onSubmit}>
                 <input value={nweet} onChange={onChange} type="text" placeholder="What's on your mind?" maxLength={120}></input>
+                <input type="file" accept="image/*" onChange={onFileChange}/>
                 <input type="submit" value="Nweet" />
+                { attachment && (
+                    <div>
+                        <img src={attachment} width="50px" height="50px" />
+                        <button onClick={onClearAttachment}>Clear</button>
+                    </div> 
+                )}
             </form>
             <div>
                 {nweets.map((nweet) => (
