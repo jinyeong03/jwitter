@@ -1,7 +1,7 @@
 import Nweet from "components/Nweet";
-import { DbService } from "fbase";
+import { DbService, StorageService } from "fbase";
 import React, { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Home({userObj}){
     const [nweet, setNweet] = useState("");
@@ -20,12 +20,25 @@ export default function Home({userObj}){
 
     const onSubmit = async (event)=>{ //---------------> 데이터 추가 
         event.preventDefault();
-        await DbService.collection("nweets").add({
+
+        let attachmentUrl = "";
+
+        if(attachment != ""){ // 사진이 있다면 
+            const attachmentRef = StorageService.ref().child(`${userObj.uid}/${uuidv4()}`); // -------------> Ref 만들기
+            const reponse = await attachmentRef.putString(attachment, "data_url"); // ---------> Ref 만든거와 attachment 이용해서 storage에 올리기
+            attachmentUrl = await reponse.ref.getDownloadURL(); //------------> 올린 이미지 다운로드 주소 받기 
+        }
+
+        const nweetObj = {
             text: nweet,
             createdAt: Date.now(),
             creatorId: userObj.uid,
-        });
-        setNweet("");
+            attachmentUrl,
+        }
+
+        await DbService.collection("nweets").add(nweetObj);  //올라간 이미지 및 정보들 데이터 추가 
+        setNweet("");  // 초기화
+        setAttachment(""); // 사진 초기화
     }
 
     const onChange = (event)=>{  //-------------> onchange input 값 state에 추가
