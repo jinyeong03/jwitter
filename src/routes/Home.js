@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 export default function Home({userObj}){
     const [nweet, setNweet] = useState("");
     const [nweets, setNweets] = useState([]);
-    const [attachment, setAttachment] = useState();
+    const [attachment, setAttachment] = useState("");
 
     useEffect(()=>{
         DbService.collection("nweets").onSnapshot(sanpshot => {      //---------> 얘는 데이터 가져오는데 re-render 필요 없음
@@ -22,20 +22,17 @@ export default function Home({userObj}){
         event.preventDefault();
 
         let attachmentUrl = "";
-
-        if(attachment != ""){ // 사진이 있다면 
+        if(attachment !== ""){ // 사진이 있다면 
             const attachmentRef = StorageService.ref().child(`${userObj.uid}/${uuidv4()}`); // -------------> Ref 만들기
             const reponse = await attachmentRef.putString(attachment, "data_url"); // ---------> Ref 만든거와 attachment 이용해서 storage에 올리기
             attachmentUrl = await reponse.ref.getDownloadURL(); //------------> 올린 이미지 다운로드 주소 받기 
         }
-
         const nweetObj = {
             text: nweet,
             createdAt: Date.now(),
             creatorId: userObj.uid,
             attachmentUrl,
         }
-
         await DbService.collection("nweets").add(nweetObj);  //올라간 이미지 및 정보들 데이터 추가 
         setNweet("");  // 초기화
         setAttachment(""); // 사진 초기화
@@ -59,7 +56,7 @@ export default function Home({userObj}){
     }
 
     const onClearAttachment = ()=> { //---------------> 이미지 미리보기 clear 함수 (attachment state 활용)
-        setAttachment(null);
+        setAttachment("");
     }
 
     return(

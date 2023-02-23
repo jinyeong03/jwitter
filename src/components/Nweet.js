@@ -1,4 +1,4 @@
-import { DbService } from "fbase";
+import { DbService, StorageService } from "fbase";
 import React, { useState } from "react";
 
 
@@ -11,6 +11,7 @@ export default function Nweet({ nweetObj, isOwner }){
         if(ok){
             //delete 
             await DbService.doc(`nweets/${nweetObj.id}`).delete();
+            await StorageService.refFromURL(nweetObj.attachmentUrl).delete();
         }
     }
 
@@ -45,7 +46,7 @@ export default function Nweet({ nweetObj, isOwner }){
                 ) : ( 
                 <>
                     <h4>{nweetObj.text}</h4>
-                    { nweetObj.attachmentUrl && <img src={nweetObj.attachment} witdh="50px" height="50px" /> }
+                    { nweetObj.attachmentUrl && <img src={nweetObj.attachmentUrl} width="50px" height="50px" /> }
                     {
                         isOwner && (
                             <>
