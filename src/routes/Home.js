@@ -1,3 +1,4 @@
+import Nweet from "components/Nweet";
 import { DbService } from "fbase";
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
@@ -19,7 +20,7 @@ export default function Home({userObj}){
 
     useEffect(()=>{
         // getJweets();
-        DbService.collection("jweets").onSnapshot(sanpshot => {      //---------> 얘는 데이터 가져오는데 re-render 필요 없음
+        DbService.collection("nweets").onSnapshot(sanpshot => {      //---------> 얘는 데이터 가져오는데 re-render 필요 없음
             const nweetArray = sanpshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
@@ -28,9 +29,9 @@ export default function Home({userObj}){
         });
     },[])
 
-    const onSubmit = async (event)=>{
+    const onSubmit = async (event)=>{ //---------------> 데이터 추가 
         event.preventDefault();
-        await DbService.collection("jweets").add({
+        await DbService.collection("nweets").add({
             text: nweet,
             createdAt: Date.now(),
             creatorId: userObj.uid,
@@ -50,9 +51,7 @@ export default function Home({userObj}){
             </form>
             <div>
                 {nweets.map((nweet) => (
-                <div key={nweet.id}>
-                    <h4>{nweet.text}</h4>
-                </div>
+                    <Nweet key={nweet.id} nweetObj={nweet} isOwner={nweet.creatorId === userObj.uid} />
                 ))}
             </div>
         </div>
