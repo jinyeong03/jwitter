@@ -8,9 +8,9 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState(null);
   useEffect(()=>{
-    AuthService.onAuthStateChanged((user) => {
-      if(user) {
-        setIsLoggedIn(true);
+    AuthService.onAuthStateChanged((user) => {  // 로그인이 되었는지 확인 
+      if(user) {    // 되었다면 isLoggedIn 을 true로 바꾸고 userObj에 데이터 추가 
+        setIsLoggedIn(true); 
         setUserObj({
           displayName: user.displayName,
           uid: user.uid,
@@ -20,11 +20,11 @@ function App() {
         setIsLoggedIn(false);
         setUserObj(null);
       }
-      setInit(true);
+      setInit(true);  //위에 스크립트가 실행될 동안 화면 로딩 표시 
     })  
   }, [])
 
-  const refreshUser = ()=>{
+  const refreshUser = ()=>{ //------> userObj 리프레쉬 
     const user = AuthService.currentUser;
     setUserObj({
       displayName: user.displayName,

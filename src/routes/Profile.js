@@ -13,6 +13,7 @@ export default function Profile({ userObj, refreshUser }){
 
     const getMyNweets = async ()=>{
         const nweets = await DbService.collection("nweets").where("creatorId", "==", userObj.uid).orderBy("createdAt").get(); // Firebase 쿼리로 데이터 받아오는 법
+        console.log(nweets.docs.map((doc)=>doc.data()));
     }
 
     const onChange = (event)=>{

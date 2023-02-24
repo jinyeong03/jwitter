@@ -6,6 +6,7 @@ export default function Auth(){
     const [password, setPassword] = useState("");
     const [newAccount, setNewAccount] = useState(true);
     const [error, setError] = useState("");
+
     const onChange = (event)=>{
         const {
             target: {name, value},
@@ -16,6 +17,7 @@ export default function Auth(){
             setPassword(value);
         }
     }
+
     const onSubmit = async (event)=>{
         event.preventDefault();
         try {
@@ -32,7 +34,9 @@ export default function Auth(){
             setError(error.message)
         }
     }
+
     const toggleAccount = ()=> setNewAccount((prev)=> !prev)
+
     const onSocialClick = async (event)=>{
         const {target: {name}} = event;
         let provider;
@@ -43,6 +47,7 @@ export default function Auth(){
         }
         await AuthService.signInWithPopup(provider);
     }
+    
     return(
         <div>
             <form onSubmit={onSubmit}>

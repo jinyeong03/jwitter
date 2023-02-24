@@ -10,8 +10,8 @@ export default function Nweet({ nweetObj, isOwner }){
         const ok = window.confirm("정말 이 nweet를 삭제하시겠습니까?");
         if(ok){
             //delete 
-            await DbService.doc(`nweets/${nweetObj.id}`).delete();
-            await StorageService.refFromURL(nweetObj.attachmentUrl).delete();
+            await DbService.doc(`nweets/${nweetObj.id}`).delete(); //글 지우기 
+            await StorageService.refFromURL(nweetObj.attachmentUrl).delete(); //사진 지우기
         }
     }
 
