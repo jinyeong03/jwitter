@@ -1,13 +1,13 @@
 import { DbService, StorageService } from "fbase";
 import React, { useState } from "react";
-
+import styles from "./Nweet.module.css";
 
 export default function Nweet({ nweetObj, isOwner }){
     const [editing, setEditing] = useState(false);
     const [newNweet, setNewNweet] = useState(nweetObj.text);
 
     const onDeleteClick = async ()=>{   //----------> 데이터 삭제 
-        const ok = window.confirm("정말 이 nweet를 삭제하시겠습니까?");
+        const ok = window.confirm("정말 이 게시물을 삭제하시겠습니까?");
         if(ok){
             //delete 
             await DbService.doc(`nweets/${nweetObj.id}`).delete(); //글 지우기 
@@ -36,26 +36,26 @@ export default function Nweet({ nweetObj, isOwner }){
         <div>
             {
                 editing ? (
-                    <>
-                        <form onSubmit={onSubmit}>
-                            <input type="text" onChange={onChange} placeholder="Edit your nweet" value={newNweet} required />
-                            <input type="submit" value="Update Nweet"/>
+                    <div className={styles.postingEditDiv}>
+                        <form onSubmit={onSubmit} style={{width: "100%"}}>
+                            <input type="text" onChange={onChange} placeholder="Edit your posting" value={newNweet} required className={styles.input} />
+                            <input type="submit" value="Update Posting" className={styles.inputEdit}/>
                         </form>
-                        <button onClick={toggleEditing}>Cancel</button> 
-                    </>
+                        <button onClick={toggleEditing} className={styles.inputCancle} >Cancel</button> 
+                    </div>
                 ) : ( 
-                <>
-                    <h4>{nweetObj.text}</h4>
-                    { nweetObj.attachmentUrl && <img src={nweetObj.attachmentUrl} width="50px" height="50px" /> }
+                <div className={styles.container}>
+                    <h4 className={styles.postingH4}>{nweetObj.text}</h4>
+                    { nweetObj.attachmentUrl && <img src={nweetObj.attachmentUrl} className={styles.postingImg} /> }
                     {
                         isOwner && (
-                            <>
-                                <button onClick={onDeleteClick}>Delete Nweet</button>
-                                <button onClick={toggleEditing}>Edit Nweet</button>
-                            </>
+                            <div className={styles.editDiv}>
+                                <img onClick={onDeleteClick} src={process.env.PUBLIC_URL  + "/icon/bin.png"} className={styles.postingEditIcon}></img>
+                                <img onClick={toggleEditing} src={process.env.PUBLIC_URL  + "/icon/pencil.png"} className={styles.postingEditIcon}></img>
+                            </div>
                         )
                     }
-                </>
+                </div>
                 )
             }
         </div>

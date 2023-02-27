@@ -1,4 +1,4 @@
-import style from "./App.module.css";
+import styles from "./App.module.css";
 import AppRouter from 'components/Router';
 import React, { useEffect, useState } from 'react';
 import {AuthService} from 'fbase';

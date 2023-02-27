@@ -1,0 +1,40 @@
+.navigationDiv {
+  width: 100%;
+  margin: 36px auto;
+  margin-bottom: 60px;
+}
+
+.navigationUl {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.navigationLi {
+  list-style: none;
+  text-decoration-line: none;
+}
+
+.homeLogo {
+  width: 36px;
+  margin-right: 8px;
+}
+
+.profileDiv {
+  margin-left: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileLogo {
+  width: 36px;
+  margin-bottom: 8px;
+}
+
+.profileSpan {
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 500;
+}

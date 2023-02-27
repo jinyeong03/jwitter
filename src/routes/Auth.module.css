@@ -1,0 +1,77 @@
+.container {
+  width: 25%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 132px;
+}
+
+.loginLogo {
+  width: 48px;
+  height: 48px;
+  margin: 24px 0;
+}
+
+.form {
+  width: 100%;
+}
+
+.input {
+  width: 93%;
+  padding: 12px;
+  border-radius: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.input:active,
+.input:focus {
+  outline: 0;
+}
+
+.submit {
+  width: 100%;
+  padding: 12px;
+  border-radius: 1.5rem;
+  font-weight: 600;
+  background-color: #059eff;
+  color: white;
+  cursor: pointer;
+}
+
+.loginToggleSpan {
+  color: #059eff;
+  cursor: pointer;
+  margin: 12px 0 60px 0;
+}
+
+.otherLoginBtnDiv {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.otherLoginBtn {
+  padding: 12px;
+  border-radius: 1.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.otherLoginBtnIcon {
+  width: 24px;
+  height: 24px;
+  margin-left: 8px;
+}
+
+@media screen and (max-width: 1050px) {
+  .container {
+    width: 92%;
+  }
+}

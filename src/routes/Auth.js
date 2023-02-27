@@ -1,5 +1,6 @@
 import { AuthService, FirebaseInstance } from "fbase";
 import React, {useState} from "react";
+import styles from "./Auth.module.css";
 
 export default function Auth(){
     const [email, setEmail] = useState("");
@@ -31,6 +32,9 @@ export default function Auth(){
             }
             console.log(data)
         } catch(error){
+            if(error.message == "Firebase: The email address is already in use by another account. (auth/email-already-in-use)."){
+                alert("이미 만들어진 아이디 입니다.");
+            }
             setError(error.message)
         }
     }
@@ -47,19 +51,19 @@ export default function Auth(){
         }
         await AuthService.signInWithPopup(provider);
     }
-    
+
     return(
-        <div>
-            <form onSubmit={onSubmit}>
-                <input name="email" type="text" placeholder="Email" required value={email} onChange={onChange}/>
-                <input name="password" type="password" placeholder="Password" required value={password} onChange={onChange}/>
-                <input type="submit" value={newAccount ? "Create Account" : "Log In"} />
-                {error}
+        <div className={ styles.container }>
+            <img src={process.env.PUBLIC_URL  + "/icon/twitter.png"} className={styles.loginLogo}/>
+            <form onSubmit={onSubmit} className={styles.form}>
+                <input name="email" type="text" placeholder="Email" required value={email} onChange={onChange} className={styles.input}/>
+                <input name="password" type="password" placeholder="Password" required value={password} onChange={onChange} className={styles.input}/>
+                <input type="submit" value={newAccount ? "Create Account" : "Log In"} className={styles.submit}/>
             </form>
-            <span onClick={toggleAccount}>{newAccount ? "Sign in" : "Create Account"}</span>
-            <div> 
-                <button name="google" onClick={onSocialClick}>Continue with Google</button>
-                <button name="github" onClick={onSocialClick}>Continue with Github</button>
+            <span onClick={toggleAccount} className={styles.loginToggleSpan}>{newAccount ? "Sign in" : "Create Account"}</span>
+            <div className={ styles.otherLoginBtnDiv }> 
+                <button name="google" onClick={onSocialClick} className={styles.otherLoginBtn}>Continue with Google <img src={process.env.PUBLIC_URL  + "/icon/google.png"} className={styles.otherLoginBtnIcon} /></button>
+                <button name="github" onClick={onSocialClick} className={styles.otherLoginBtn}>Continue with Google <img src={process.env.PUBLIC_URL  + "/icon/google.png"} className={styles.otherLoginBtnIcon} /></button>
             </div>
         </div>
     )

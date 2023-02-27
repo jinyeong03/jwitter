@@ -2,6 +2,7 @@ import Nweet from "components/Nweet";
 import { DbService, StorageService } from "fbase";
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import styles from "./Home.module.css";
 
 export default function Home({userObj}){
     const [nweet, setNweet] = useState("");
@@ -20,6 +21,11 @@ export default function Home({userObj}){
 
     const onSubmit = async (event)=>{ //---------------> 데이터 추가 
         event.preventDefault();
+
+        if(nweet == ""){
+            alert("글을 입력해주세요.")
+            return false;
+        }
 
         let attachmentUrl = "";
         if(attachment !== ""){ // 사진이 있다면 
@@ -60,15 +66,25 @@ export default function Home({userObj}){
     }
 
     return(
-        <div>
-            <form onSubmit={onSubmit}>
-                <input value={nweet} onChange={onChange} type="text" placeholder="What's on your mind?" maxLength={120}></input>
-                <input type="file" accept="image/*" onChange={onFileChange}/>
-                <input type="submit" value="Nweet" />
+        <div className={styles.container}>
+            <form onSubmit={onSubmit} className={styles.form}>
+                <input value={nweet} onChange={onChange} type="text" placeholder="What's on your mind?" maxLength={120} className={styles.input}></input>
+                <input type="file" id="attachment" accept="image/*" onChange={onFileChange} style={{display: "none"}}/>
+                <input type="submit" value="Posting" className={styles.submit} ></input>
+                <div className={styles.addImgDiv} onClick={()=>{
+                    const file = document.querySelector('#attachment');
+                    file.click();
+                }}> 
+                    <span className={ styles.addImgSpan }>Add Photos</span>
+                    <img src={process.env.PUBLIC_URL  + "/icon/add.png"} className={styles.addImgIcon}></img>
+                </div>
                 { attachment && (
-                    <div>
-                        <img src={attachment} width="50px" height="50px" />
-                        <button onClick={onClearAttachment}>Clear</button>
+                    <div className={styles.postImgDiv}>
+                        <img src={attachment} className={styles.postImg}/>
+                        <div onClick={onClearAttachment} className={styles.postDeleteDiv}>
+                            <span className={styles.postDeleteSpan}>remove</span>
+                            <img src={process.env.PUBLIC_URL  + "/icon/close.png"} className={styles.postDeleteImg}></img>
+                        </div>
                     </div> 
                 )}
             </form>

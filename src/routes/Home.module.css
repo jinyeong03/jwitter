@@ -1,0 +1,97 @@
+.container {
+  width: 25%;
+  margin: 0 auto;
+}
+
+.form {
+  width: 100%;
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 12px 12px 12px;
+  border-radius: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  background-color: black;
+  border: 1px solid #059eff;
+  color: white;
+}
+
+.input:active,
+.input:focus {
+  outline: 0;
+}
+
+.addImgDiv {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.addImgSpan {
+  color: #059eff;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-right: 4px;
+}
+
+.addImgIcon {
+  width: 24px;
+  margin-left: 4px;
+}
+
+.submit {
+  padding: 12px;
+  border-radius: 1.5rem;
+  font-weight: 600;
+  background-color: #059eff;
+  border: 1px solid #059eff;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+@media screen and (max-width: 1050px) {
+  .container {
+    width: 92%;
+  }
+  .input {
+    width: 71%;
+    padding-right: 13%;
+  }
+  .addImgDiv {
+    margin-top: 24px;
+  }
+  .postImgDiv {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 24px;
+  }
+  .postImg {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    height: auto;
+    margin-bottom: 24px;
+  }
+  .postDeleteDiv {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .postDeleteSpan {
+    color: #059eff;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-right: 4px;
+  }
+  .postDeleteImg {
+    width: 24px;
+    margin-left: 4px;
+  }
+}

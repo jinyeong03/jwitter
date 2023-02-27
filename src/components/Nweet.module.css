@@ -1,0 +1,93 @@
+.container {
+  width: 25%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 1050px) {
+  .container {
+    width: 100%;
+    height: fit-content;
+    background-color: white;
+    padding: 24px 0px;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 24px;
+    border-radius: 15px;
+    position: relative;
+  }
+  .postingH4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0px 4%;
+  }
+  .postingImg {
+    width: 92%;
+    margin: 0 auto;
+    margin-top: 12px;
+  }
+  .editDiv {
+    position: absolute;
+    top: 8px;
+    right: 0px;
+  }
+  .postingEditIcon {
+    width: 20px;
+    margin-right: 8px;
+  }
+  .postingEditDiv {
+    width: 100%;
+    background-color: white;
+    padding: 24px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+    border-radius: 15px;
+    margin-top: 24px;
+  }
+  .input {
+    width: 84%;
+    margin: 0 auto;
+    padding: 12px;
+    border-radius: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .input:active,
+  .input:focus {
+    outline: 0;
+  }
+  .inputEdit {
+    width: 92%;
+    margin: 0 auto;
+    padding: 8px;
+    border-radius: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    background-color: #059eff;
+    color: white;
+    border: 1px solid #059eff;
+  }
+  .inputEdit:active,
+  .inputEdit:focus {
+    outline: 0;
+  }
+  .inputCancle {
+    width: 92%;
+    margin: 0 auto;
+    padding: 8px;
+    border-radius: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    background-color: #f9573d;
+    color: white;
+    border: 1px solid #f9573d;
+  }
+  .inputCancle:active,
+  .inputCancle:focus {
+    outline: 0;
+  }
+}
