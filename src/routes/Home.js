@@ -100,6 +100,6 @@ export default function Home({userObj}){
                 </div>
             </div>
         :
-            <span>업로드 중입니다...</span>
+            <span style={{color: "white", fontSize: "1.1rem"}}>업로드 중입니다...</span>
     )
 }
